@@ -1,36 +1,27 @@
-import { useState } from 'react'
-import Image from 'next/image'
-import { title } from 'process';
+//use client
+// import { useState } from 'react'
 
-let  listdetal: {
-  id: number,
-  title: string;
-  content: string;
-  is_completed: boolean
-}[] = [
-  {id: 1, title: "資格取得", content: "2025年1月までに取得する" , is_completed: false},
-  {id: 2, title: "ランニング", content: "18時に走りに行く" , is_completed: true},
-  {id: 2, title: "筋トレ", content: "胸の日" , is_completed: false}
-];
-
-export default function Home() {
+export default function listHome() {
   return (
-    <div>
-      <h1>TODOList</h1>
-      <div>
-      <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600"
-        >
-          Add
-        </button>
+    <div className='w-full'>
+      <header className='w-full text-white py-4'>
+        <h1 className='text-2xl font-bold px-8'>Next.js</h1>
+      </header>
+      <div className='flex flex-col items-center w-full'>
+        <div className='px-8'>
+          <div className='border rounded px-2 py-1 max-w-80 mb-10'>
+            <h1 className='flex flex-col px-8 text-xl font-bold'>筋トレ</h1>
+            <p className='flex flex-col px-8'>18時に筋トレ</p>
+          </div>
+          <div className='border rounded px-2 py-1 max-w-80 mb-10'>
+            <h1 className='flex flex-col px-8 text-xl font-bold'>資格取得</h1>
+            <p className='flex flex-col px-8'>２時間資格勉強</p>
+          </div>
+        </div>
       </div>
-      <div>
-        {/* <ul>
-          {listdetal.map(
-
-          )}
-        </ul> */}
-      </div>
+      <footer className='w-full text-white py-4 text-center'>
+        <p>@COPY Light </p>
+      </footer>
     </div>
   )
 }
