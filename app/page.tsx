@@ -16,28 +16,27 @@ export default function listHome() {
     { id: 3, title: 'マラソン', content: '5km走る' },
   ])
   return (
-    <>
-      <div className='w-full'>
-        <header className='w-full text-white py-4'>
-          <h1 className='text-2xl font-bold px-8'>Next.js</h1>
-        </header>
-        <div className='flex flex-col items-center w-full'>
-          <div className='px-8'>
-            {todos.map((todo) => (
-              <div
-                className='border rounded px-2 py-1 max-w-80 mb-10'
-                key={todo.id}
-              >
-                <h1>{todo.title}</h1>
-                <p>{todo.content}</p>
-              </div>
-            ))}
+    <div className="flex flex-col h-screen">
+    <header className="w-full h-1/8 ">
+      <h1 className="px-8 text-2xl ">TODOアプリ</h1>
+    </header>
+    <main className="flex-1 bg-gray-100 p-4 overflow-auto">
+      <div className="space-y-2">
+        {todos.map((todo) => (
+          <div
+            className="bg-white p-4 shadow rounded"
+            key={todo.id}
+            >
+            <h1 className='text-bold'>{todo.title}</h1>
+            <p>{todo.content}</p>
           </div>
-        </div>
+        ))}
       </div>
-      <footer className='w-full text-white py-4 text-center'>
-        <p>@COPY Light </p>
-      </footer>
-    </>
+    </main>
+    <footer className='w-full text-white py-4 text-center'>
+      <p>@COPY Light </p>
+    </footer>
+  </div>
   )
 }
+
