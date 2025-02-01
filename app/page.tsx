@@ -43,7 +43,9 @@ export default function listHome() {
         <div className='space-y-2'>
           {todos.map((todo) => (
             <div className='bg-white p-4 shadow rounded' key={todo.id}>
-              <h1 className='text-bold text-black'>{todo.title}</h1>
+              <Link href={RoutePath.TODODETAIL}>
+                <span className='text-bold text-black'>{todo.title}</span>
+              </Link>
               <p className='text-black'>{todo.content}</p>
             </div>
           ))}
