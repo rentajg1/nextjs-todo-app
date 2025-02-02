@@ -51,7 +51,7 @@ export default function listHome() {
         </div>
       </main>
       <footer className='w-full py-4 text-center'>
-        <p>@COPY Light </p>
+        <p>©︎COPY Light </p>
       </footer>
     </div>
   )
