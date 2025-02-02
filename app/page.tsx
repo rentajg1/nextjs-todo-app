@@ -22,7 +22,7 @@ export default function listHome() {
   const Screentrans = useRouter()
 
   // ユーザーがボタンを押下した時ADDTODOに画面遷移
-  const handleaddtoodoButtonClick = () => {
+  const HandleAddTodoButtonClick = () => {
     Screentrans.push(RoutePath.ADDTODO)
   }
   return (
@@ -32,13 +32,12 @@ export default function listHome() {
           <span>TODOLIST</span>
         </Link>
         <button
-          onClick={handleaddtoodoButtonClick}
+          onClick={HandleAddTodoButtonClick}
           className='bg-white text-blue-500 px-4 py-2 rounded-md shadow hover:bg-green-200'
         >
           TODO登録画面
         </button>
       </header>
-      ß
       <main className='flex-1 bg-gray-100 p-4 overflow-auto'>
         <div className='space-y-2'>
           {todos.map((todo) => (
@@ -51,8 +50,8 @@ export default function listHome() {
           ))}
         </div>
       </main>
-      <footer className='w-full text-white py-4 text-center'>
-        <p>@COPY Light </p>
+      <footer className='w-full py-4 text-center'>
+        <p>©︎COPY Light </p>
       </footer>
     </div>
   )
