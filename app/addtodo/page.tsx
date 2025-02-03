@@ -11,9 +11,22 @@ export default function ADDtodo() {
   }
 
   return (
-    <div>
-      <h1>TODOを登録する</h1>
-      <div>
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="w-96 p-6 shadow-lg bg-white rounded-2xl">
+        <h2 className="text-xl font-semibold mb-4">TODO 登録</h2>
+        <form action="">
+        <input
+          placeholder="タイトルを入力"
+          className="mb-4"
+        />
+        <textarea
+          placeholder="内容を入力"
+          className="mb-4"
+        />
+        </form>
+        <button className="w-full">
+          登録
+        </button>
         <button onClick={handlebackButton}>戻る</button>
       </div>
     </div>
