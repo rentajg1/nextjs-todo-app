@@ -6,8 +6,11 @@ import { useRouter } from 'next/navigation'
 export default function ADDtodo() {
   const Screenstans = useRouter()
 
-  const handlebackButton = () => {
+  const HandleBackButton = () => {
     Screenstans.push(RoutePath.TODOLIST)
+  }
+  const HandleAddTodoButton = () => {
+    alert("ああ");
   }
 
   return (
@@ -24,10 +27,10 @@ export default function ADDtodo() {
           className="mb-4"
         />
         </form>
-        <button className="w-full">
+        <button className="w-full"onClick={HandleAddTodoButton}>
           登録
         </button>
-        <button onClick={handlebackButton}>戻る</button>
+        <button onClick={HandleBackButton}>戻る</button>
       </div>
     </div>
   )
