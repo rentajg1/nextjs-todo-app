@@ -1,0 +1,28 @@
+import { useState, useEffect } from "react";
+
+//TODOデータの型
+type Todo = {
+  id: number;
+  title: string;
+  content: string;
+};
+
+export function TodoItem() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  // Todoリストを取得
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos") || "[]");
+    setTodos(storedTodos);
+  }, []);
+
+  //Todoを追加
+  const addTodo = (title: string, content: string) => {
+    const newTodo = { id: Date.now(), title, content };
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+  };
+
+  return { todos, addTodo };
+}
