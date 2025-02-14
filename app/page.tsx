@@ -2,25 +2,20 @@
 import { RoutePath } from '@/RoutePath/ RoutePath'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-
-// TODOのデータ型
-type Todo = {
-  id: number
-  title: string
-  content: string
-}
+import { TodoItem } from '@/compornemt/TodoItem';
 
 export default function listHome() {
   // 初期のTODOデータ
-  const [todos] = useState<Todo[]>([
-    { id: 1, title: '筋トレ', content: '１８時に胸トレ' },
-    { id: 2, title: '資格取得', content: '２時間資格勉強' },
-    { id: 3, title: 'マラソン', content: '5km走る' },
-  ])
+  // const [todos] = useState<Todo[]>([
+  //   { id: 1, title: '筋トレ', content: '１８時に胸トレ' },
+  //   { id: 2, title: '資格取得', content: '２時間資格勉強' },
+  //   { id: 3, title: 'マラソン', content: '5km走る' },
+  // ])
   //画面遷移の変数
-  const Screentrans = useRouter()
+  const Screentrans = useRouter();
+  const { todos } = TodoItem();
 
+  
   // ユーザーがボタンを押下した時ADDTODOに画面遷移
   const HandleAddTodoButtonClick = () => {
     Screentrans.push(RoutePath.ADDTODO)
@@ -40,8 +35,8 @@ export default function listHome() {
       </header>
       <main className='flex-1 bg-gray-100 p-4 overflow-auto'>
         <div className='space-y-2'>
-          {todos.map((todo) => (
-            <div className='bg-white p-4 shadow rounded' key={todo.id}>
+          {todos.map((todo, id) => (
+            <div className='bg-white p-4 shadow rounded' key={id}>
               <Link href={RoutePath.TODODETAIL}>
                 <span className='text-bold text-black'>{todo.title}</span>
               </Link>
