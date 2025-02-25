@@ -3,7 +3,7 @@
 import { RoutePath } from "@/RoutePath/ RoutePath"
 import Link from "next/link"
 
-export default function DETAILtodo() {
+export default function UpdateTodo() {
   return (
     <div className='flex flex-col h-screen'>
       <header className='flex justify-between items-center w-full px-20  py-4'>
@@ -17,7 +17,7 @@ export default function DETAILtodo() {
         </button>
       </header>
       <div>
-        <p>削除画面</p>
+        <p>更新画面</p>
       </div>
     </div>
   )

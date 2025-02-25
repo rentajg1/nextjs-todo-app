@@ -1,11 +1,11 @@
 'use client'
 import { RoutePath } from '@/RoutePath/ RoutePath'
-import { TodoItem } from "@/compornemt/TodoItem"
+import { TodoItem } from "@/hooks/useTodoItem"
 import Link from 'next/link';
 import React from "react";
 import { useRouter } from 'next/navigation'
  
-export default function TodoDetail({ params }: { params: Promise<{ id: string }> }) {
+export default function DetailTodo({ params }: { params: Promise<{ id: string }> }) {
 const { todos } = TodoItem();
 const ScreenTrans = useRouter();
   
