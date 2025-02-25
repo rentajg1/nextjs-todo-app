@@ -2,9 +2,9 @@
 import { RoutePath } from '@/RoutePath/ RoutePath'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { TodoItem } from '@/compornemt/TodoItem';
+import { TodoItem } from '@/hooks/useTodoItem';
 
-export default function listHome() {
+export default function ListTodo() {
   // 初期のTODOデータ
   // const [todos] = useState<Todo[]>([
   //   { id: 1, title: '筋トレ', content: '１８時に胸トレ' },
@@ -16,9 +16,9 @@ export default function listHome() {
   const { todos } = TodoItem();
 
   
-  // ユーザーがボタンを押下した時ADDTODOに画面遷移
+  // ユーザーがボタンを押下した時登録画面に画面遷移
   const HandleAddTodoButtonClick = () => {
-    Screentrans.push(RoutePath.ADDTODO)
+    Screentrans.push(RoutePath.TODOADD)
   }
   return (
     <div className='flex flex-col h-screen'>
@@ -35,9 +35,9 @@ export default function listHome() {
       </header>
       <main className='flex-1 bg-gray-100 p-4 overflow-auto'>
         <div className='space-y-2'>
-          {todos.map((todo, id) => (
-            <div className='bg-white p-4 shadow rounded' key={id}>
-              <Link href={RoutePath.TODODETAIL}>
+          {todos.map((todo) => (
+            <div className='bg-white p-4 shadow rounded' key={todo.id}>
+              <Link href={`/tododetail/${todo.id}`}>
                 <span className='text-bold text-black'>{todo.title}</span>
               </Link>
               <p className='text-black'>{todo.content}</p>

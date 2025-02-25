@@ -18,7 +18,7 @@ export function TodoItem() {
 
   //Todoを追加
   const addTodo = (title: string, content: string) => {
-    const newTodo = { id: Date.now(), title, content };
+    const newTodo = { id: todos.length + 1, title, content };
     const updatedTodos = [...todos, newTodo];
     setTodos(updatedTodos);
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
