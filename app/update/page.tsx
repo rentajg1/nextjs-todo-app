@@ -18,6 +18,7 @@ export default function UpdateTodo() {
       </header>
       <div>
         <p>更新画面</p>
+        <p>テスト</p>
       </div>
     </div>
   )
