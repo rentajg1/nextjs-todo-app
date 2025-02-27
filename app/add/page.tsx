@@ -34,11 +34,11 @@ export default function AddTodo() {
               placeholder='タイトルを入力'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className='mb-4'
+              className='mb-4 text-black'
             />
             <textarea
               placeholder='内容を入力'
-              className='mb-4'
+              className='mb-4 text-black'
               onChange={(e) => setContent(e.target.value)}
             />
           </form>
