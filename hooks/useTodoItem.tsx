@@ -36,5 +36,20 @@ export function useTodoItem() {
     setTodos(updatedTodos)
   }
 
-  return { todos, setTodos, addTodo, UpdateTodo }
+  //Todoを削除する
+  const deleteTodo = (id: string) => {
+    const updatedTodos = todos.filter((todo) => todo.id !== id)
+
+    // ID を振り直す
+    const reindexedTodos = updatedTodos.map((todo, index) => ({
+      ...todo,
+      id: (index + 1).toString(), // 1 から順に ID を振り直す
+    }))
+    // ローカルストレージの `todos` を削除
+    localStorage.removeItem('todos')
+    localStorage.setItem('todos', JSON.stringify(reindexedTodos))
+    setTodos(reindexedTodos)
+  }
+
+  return { todos, setTodos, addTodo, UpdateTodo, deleteTodo }
 }
