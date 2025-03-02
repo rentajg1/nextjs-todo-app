@@ -1,26 +1,32 @@
 'use client'
 
-import { TodoItem } from '@/hooks/useTodoItem'
+import { useTodoItem } from '@/hooks/useTodoItem'
 import { RoutePath } from '@/RoutePath/ RoutePath'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function UpdateTodo({
   params,
 }: {
-  params: Promise<{ id: number }>
+  params: Promise<{ id: string }>
 }) {
-  const { todos, UpdateTodo } = TodoItem()
+  const { todos, UpdateTodo } = useTodoItem()
   const ScreenTrans = useRouter()
+  const [todoId, settodoId] = useState<String | null>(null)
 
-  // React.use()を利用して非同期のparamsを解決React.useについてもっと調べる(詳細画面からコピペ)
-  const { id } = React.use(params)
-  // 該当のTodoデータからIDをしゅとく
-  const todo = todos.find((todo) => todo.id === Number(id))
+  useEffect(() => {
+    params.then((resolveParams) => {
+      settodoId(resolveParams.id)
+    })
+  }, [params])
+
+  // 該当のTodoデータからIDを取得_明示的にNumber型すると画面表示できた
+  const todo = todos.find((todo) => Number(todo.id) === Number(todoId))
 
   const [title, setTitle] = useState(todo?.title || '')
   const [content, setContent] = useState(todo?.title || '')
+  const setId = String(todoId)
 
   useEffect(() => {
     if (todo) {
@@ -31,7 +37,8 @@ export default function UpdateTodo({
 
   const HandleUpdateButtonClick = () => {
     if (!title || !content) return alert('項目を更新してください')
-    UpdateTodo(id, title, content)
+    console.log('更新：', setId)
+    UpdateTodo(setId, title, content)
     console.log(UpdateTodo)
     alert('更新完了')
     ScreenTrans.push(RoutePath.TODOLIST)

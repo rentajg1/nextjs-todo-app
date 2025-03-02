@@ -2,19 +2,13 @@
 import { RoutePath } from '@/RoutePath/ RoutePath'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { TodoItem } from '@/hooks/useTodoItem'
+import { useTodoItem } from '@/hooks/useTodoItem'
 import { useEffect, useState } from 'react'
 
 export default function ListTodo() {
   //画面遷移の変数
   const Screentrans = useRouter()
-  const { todos } = TodoItem()
-  const [, setTodoList] = useState(todos)
-
-  //更新後に最新のtodoリストを取得
-  useEffect(() => {
-    setTodoList(todos)
-  }, [todos])
+  const { todos, setTodos } = useTodoItem()
 
   // ユーザーがボタンを押下した時登録画面に画面遷移
   const HandleAddTodoButtonClick = () => {

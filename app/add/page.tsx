@@ -1,5 +1,5 @@
 'use client'
-import { TodoItem } from '@/hooks/useTodoItem'
+import { useTodoItem } from '@/hooks/useTodoItem'
 import { RoutePath } from '@/RoutePath/ RoutePath'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -9,7 +9,7 @@ export default function AddTodo() {
   const Screenstans = useRouter()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const { addTodo } = TodoItem()
+  const { addTodo } = useTodoItem()
 
   const HandleAddTodoButton = () => {
     addTodo(title, content)

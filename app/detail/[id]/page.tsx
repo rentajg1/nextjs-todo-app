@@ -1,32 +1,30 @@
 'use client'
 import { RoutePath } from '@/RoutePath/ RoutePath'
-import { TodoItem } from '@/hooks/useTodoItem'
+import { useTodoItem } from '@/hooks/useTodoItem'
 import Link from 'next/link'
-import React from 'react'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function DetailTodo({
   params,
 }: {
   params: Promise<{ id: string }>
 }) {
-  const { todos } = TodoItem()
+  const { todos } = useTodoItem()
   const ScreenTrans = useRouter()
+  const [todoId, settodoId] = useState<string | null>(null)
 
-  // React.use()を利用して非同期のparamsを解決React.useについてもっと調べる
-  const { id } = React.use(params)
+  useEffect(() => {
+    params.then((resolveParams) => {
+      settodoId(resolveParams.id)
+    })
+  }, [params])
 
-  // 該当のTodoデータからIDをしゅとく
-  const todo = todos.find((todo) => todo.id === Number(id))
+  // 該当のTodoデータからIDを取得_明示的にNumber型すると画面表示できた
+  const todo = todos.find((todo) => Number(todo.id) === Number(todoId))
 
   if (!todo) {
     return <div>Todo not found</div>
-  }
-
-  // ユーザーがボタンを押下した時更新画面に画面遷移
-  const HandleAddUpdateButtonClick = () => {
-    console.log(todos)
-    ScreenTrans.push(RoutePath.TODOUPDATE)
   }
 
   // ユーザーがボタンを押下した時削除画面に画面遷移
@@ -59,12 +57,7 @@ export default function DetailTodo({
           </label>
           <div className='flex justify-between w-full p-4'>
             <Link href={`/update/${todo.id}`}>
-              <button
-                className='text-orange-950'
-                onClick={HandleAddUpdateButtonClick}
-              >
-                更新
-              </button>
+              <button className='text-orange-950'>更新</button>
             </Link>
             <button
               className='text-orange-950'
