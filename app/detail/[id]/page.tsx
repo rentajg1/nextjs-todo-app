@@ -1,3 +1,5 @@
+// 指摘有り
+
 'use client'
 import { RoutePath } from '@/RoutePath/ RoutePath'
 import DeleteConfirmModal from '@/components/DeleteConfirmModal'
@@ -12,7 +14,7 @@ export default function DetailTodo({
   params: Promise<{ id: string }>
 }) {
   const { todos, deleteTodo } = useTodoItem()
-  const ScreenTrans = useRouter()
+  const router = useRouter()
   const [todoId, settodoId] = useState<string | null>(null)
   //モーダル状態管理
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -40,7 +42,7 @@ export default function DetailTodo({
     if (todo) {
       deleteTodo(todo.id) // 削除処理実行
       setIsModalOpen(false)
-      ScreenTrans.push(RoutePath.TODOLIST) // 削除後、一覧画面へ
+      router.push(RoutePath.TODOLIST) // 削除後、一覧画面へ
     }
   }
 
@@ -50,9 +52,7 @@ export default function DetailTodo({
         <Link href={RoutePath.TODOLIST}>
           <span>TODOLIST</span>
         </Link>
-        <button className='hidden'>
-          非表示ボタン
-        </button>
+        <button className='hidden'>非表示ボタン</button>
       </header>
       <main className='flex items-center justify-center h-screen bg-gray-100'>
         <div className='w-96 p-6 bg-white rounded-2xl'>
@@ -60,21 +60,20 @@ export default function DetailTodo({
             TODO詳細画面
           </h2>
           <div className='mb-4 w-full'>
-          <label htmlFor='' className='mb-4 w-full p-2 text-1xl text-black'>
-            <span>タイトル名：</span>
-            {todo.title}
-          </label>
+            <label htmlFor='' className='mb-4 w-full p-2 text-1xl text-black'>
+              <span>タイトル名：</span>
+              {todo.title}
+            </label>
           </div>
           <div className='mb-4 w-full'>
-          <label htmlFor='' className='mb-4 w-full p-2 text-1xl text-black'>
-            <span className=''>内容：</span>
-            {todo.content}
-          </label>
+            <label htmlFor='' className='mb-4 w-full p-2 text-1xl text-black'>
+              <span className=''>内容：</span>
+              {todo.content}
+            </label>
           </div>
           <div className='flex justify-between w-full p-4'>
             <Link href={`/update/${todo.id}`}>
-              <button className='shadow px-4 py-2 rounded-md hover:bg-white-200'
-              >
+              <button className='shadow px-4 py-2 rounded-md hover:bg-white-200'>
                 更新
               </button>
             </Link>

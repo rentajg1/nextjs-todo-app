@@ -25,7 +25,7 @@ export function useTodoItem() {
   }
 
   //Todoを更新する
-  const UpdateTodo = (id: string, newTitle: string, newContent: string) => {
+  const updateTodo = (id: string, newTitle: string, newContent: string) => {
     //idに該当するデータのtitleとcontentを更新
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, title: newTitle, content: newContent } : todo
@@ -51,5 +51,5 @@ export function useTodoItem() {
     setTodos(reindexedTodos)
   }
 
-  return { todos, setTodos, addTodo, UpdateTodo, deleteTodo }
+  return { todos, setTodos, addTodo, updateTodo, deleteTodo }
 }

@@ -3,17 +3,17 @@ import { RoutePath } from '@/RoutePath/ RoutePath'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useTodoItem } from '@/hooks/useTodoItem'
-import { useEffect, useState } from 'react'
 
 export default function ListTodo() {
   //画面遷移の変数
-  const Screentrans = useRouter()
-  const { todos, setTodos } = useTodoItem()
+  const router = useRouter()
+  const { todos } = useTodoItem()
 
   // ユーザーがボタンを押下した時登録画面に画面遷移
-  const HandleAddTodoButtonClick = () => {
-    Screentrans.push(RoutePath.TODOADD)
+  const handleAddTodoButtonClick = () => {
+    router.push(RoutePath.TODOADD)
   }
+
   return (
     <div className='flex flex-col h-screen'>
       <header className='flex justify-between items-center w-full px-20  py-4'>
@@ -21,7 +21,7 @@ export default function ListTodo() {
           <span>TODOLIST</span>
         </Link>
         <button
-          onClick={HandleAddTodoButtonClick}
+          onClick={handleAddTodoButtonClick}
           className='bg-white text-black px-4 py-2 rounded-md shadow hover:bg-white-200'
         >
           TODO登録画面
@@ -32,7 +32,7 @@ export default function ListTodo() {
           {todos.map((todo) => (
             <div className='bg-white p-4 shadow rounded my-2' key={todo.id}>
               <Link href={`/detail/${todo.id}`}>
-              <h2 className='text-1xl text-black'>{todo.title}</h2>
+                <h2 className='text-1xl text-black'>{todo.title}</h2>
               </Link>
               <p className='text-black'>{todo.content}</p>
             </div>
