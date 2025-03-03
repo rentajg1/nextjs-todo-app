@@ -14,7 +14,7 @@ export default function DetailTodo({
   params: Promise<{ id: string }>
 }) {
   const { todos, deleteTodo } = useTodoItem()
-  const ScreenTrans = useRouter()
+  const router = useRouter()
   const [todoId, settodoId] = useState<string | null>(null)
   //モーダル状態管理
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -42,7 +42,7 @@ export default function DetailTodo({
     if (todo) {
       deleteTodo(todo.id) // 削除処理実行
       setIsModalOpen(false)
-      ScreenTrans.push(RoutePath.TODOLIST) // 削除後、一覧画面へ
+      router.push(RoutePath.TODOLIST) // 削除後、一覧画面へ
     }
   }
 

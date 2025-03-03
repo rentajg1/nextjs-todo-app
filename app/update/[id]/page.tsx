@@ -1,5 +1,3 @@
-// 指摘有り
-
 'use client'
 
 import { useTodoItem } from '@/hooks/useTodoItem'
@@ -13,13 +11,13 @@ export default function UpdateTodo({
 }: {
   params: Promise<{ id: string }>
 }) {
-  const { todos, UpdateTodo } = useTodoItem()
-  const ScreenTrans = useRouter()
-  const [todoId, settodoId] = useState<String | null>(null)
+  const { todos, updateTodo } = useTodoItem()
+  const router = useRouter()
+  const [todoId, setTodoId] = useState<string | null>(null)
 
   useEffect(() => {
     params.then((resolveParams) => {
-      settodoId(resolveParams.id)
+      setTodoId(resolveParams.id)
     })
   }, [params])
 
@@ -37,13 +35,13 @@ export default function UpdateTodo({
     }
   }, [todo])
 
-  const HandleUpdateButtonClick = () => {
+  const handleUpdateButtonClick = () => {
     if (!title || !content) return alert('項目を更新してください')
     console.log('更新：', setId)
-    UpdateTodo(setId, title, content)
-    console.log(UpdateTodo)
+    updateTodo(setId, title, content)
+    console.log(updateTodo)
     alert('更新完了')
-    ScreenTrans.push(RoutePath.TODOLIST)
+    router.push(RoutePath.TODOLIST)
   }
 
   if (!todo) {
@@ -84,7 +82,7 @@ export default function UpdateTodo({
           <div className='flex justify-between w-full p-4'>
             <button
               className='shadow px-4 py-2 rounded-md hover:bg-white-200'
-              onClick={HandleUpdateButtonClick}
+              onClick={handleUpdateButtonClick}
             >
               確定
             </button>

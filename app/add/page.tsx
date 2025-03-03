@@ -1,5 +1,3 @@
-// 指摘有り
-
 'use client'
 import { useTodoItem } from '@/hooks/useTodoItem'
 import { RoutePath } from '@/RoutePath/ RoutePath'
@@ -8,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 export default function AddTodo() {
-  const ScreenTrans = useRouter()
+  const router = useRouter()
   const { addTodo } = useTodoItem()
 
   const {
@@ -23,11 +21,11 @@ export default function AddTodo() {
     },
   })
 
-  const OnSubmit = (data: { title: string; content: string }) => {
+  const onSubmit = (data: { title: string; content: string }) => {
     addTodo(data.title, data.content)
     alert('登録完了')
     reset() // フォームをリセット
-    ScreenTrans.push(RoutePath.TODOLIST) // 一覧ページへ遷移
+    router.push(RoutePath.TODOLIST) // 一覧ページへ遷移
   }
 
   return (
@@ -42,7 +40,7 @@ export default function AddTodo() {
           <h2 className='text-xl text-orange-950 font-semibold mb-4'>
             TODO登録
           </h2>
-          <form onSubmit={handleSubmit(OnSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className='mb-4'>
               <input
                 {...register('title', {
