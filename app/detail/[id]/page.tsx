@@ -50,29 +50,36 @@ export default function DetailTodo({
         <Link href={RoutePath.TODOLIST}>
           <span>TODOLIST</span>
         </Link>
-        <button className='hidden bg-white text-blue-500 px-4 py-2 rounded-md shadow hover:bg-green-200'>
+        <button className='hidden'>
           非表示ボタン
         </button>
       </header>
       <main className='flex items-center justify-center h-screen bg-gray-100'>
         <div className='w-96 p-6 bg-white rounded-2xl'>
-          <h2 className='text-xl text-orange-950 font-semibold mb-4'>
+          <h2 className='text-xl text_black font-semibold py-4'>
             TODO詳細画面
           </h2>
-          <label htmlFor='' className='mb-4 text-black'>
-            <span>title:</span>
+          <div className='mb-4 w-full'>
+          <label htmlFor='' className='mb-4 w-full p-2 text-1xl text-black'>
+            <span>タイトル名：</span>
             {todo.title}
           </label>
-          <label htmlFor='' className='mb-4 text-black'>
-            <span>content:</span>
+          </div>
+          <div className='mb-4 w-full'>
+          <label htmlFor='' className='mb-4 w-full p-2 text-1xl text-black'>
+            <span className=''>内容：</span>
             {todo.content}
           </label>
+          </div>
           <div className='flex justify-between w-full p-4'>
             <Link href={`/update/${todo.id}`}>
-              <button className='text-orange-950'>更新</button>
+              <button className='shadow px-4 py-2 rounded-md hover:bg-white-200'
+              >
+                更新
+              </button>
             </Link>
             <button
-              className='text-orange-950'
+              className='shadow px-4 py-2 rounded-md hover:bg-white-200'
               onClick={HandleDeleteButtonClick}
             >
               削除
