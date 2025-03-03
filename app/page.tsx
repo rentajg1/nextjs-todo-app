@@ -2,20 +2,14 @@
 import { RoutePath } from '@/RoutePath/ RoutePath'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { TodoItem } from '@/hooks/useTodoItem';
+import { useTodoItem } from '@/hooks/useTodoItem'
+import { useEffect, useState } from 'react'
 
 export default function ListTodo() {
-  // 初期のTODOデータ
-  // const [todos] = useState<Todo[]>([
-  //   { id: 1, title: '筋トレ', content: '１８時に胸トレ' },
-  //   { id: 2, title: '資格取得', content: '２時間資格勉強' },
-  //   { id: 3, title: 'マラソン', content: '5km走る' },
-  // ])
   //画面遷移の変数
-  const Screentrans = useRouter();
-  const { todos } = TodoItem();
+  const Screentrans = useRouter()
+  const { todos, setTodos } = useTodoItem()
 
-  
   // ユーザーがボタンを押下した時登録画面に画面遷移
   const HandleAddTodoButtonClick = () => {
     Screentrans.push(RoutePath.TODOADD)
@@ -37,7 +31,7 @@ export default function ListTodo() {
         <div className='space-y-2'>
           {todos.map((todo) => (
             <div className='bg-white p-4 shadow rounded' key={todo.id}>
-              <Link href={`/tododetail/${todo.id}`}>
+              <Link href={`/detail/${todo.id}`}>
                 <span className='text-bold text-black'>{todo.title}</span>
               </Link>
               <p className='text-black'>{todo.content}</p>
