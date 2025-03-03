@@ -1,5 +1,6 @@
 'use client'
 import { RoutePath } from '@/RoutePath/ RoutePath'
+import DeleteConfirmModal from '@/components/DeleteConfirmModal'
 import { useTodoItem } from '@/hooks/useTodoItem'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -10,9 +11,11 @@ export default function DetailTodo({
 }: {
   params: Promise<{ id: string }>
 }) {
-  const { todos } = useTodoItem()
+  const { todos, deleteTodo } = useTodoItem()
   const ScreenTrans = useRouter()
   const [todoId, settodoId] = useState<string | null>(null)
+  //モーダル状態管理
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     params.then((resolveParams) => {
@@ -27,9 +30,18 @@ export default function DetailTodo({
     return <div>Todo not found</div>
   }
 
-  // ユーザーがボタンを押下した時削除画面に画面遷移
-  const HandleAddDeleteButtonClick = () => {
-    ScreenTrans.push(RoutePath.TODODELETE)
+  //削除ボタンクリック時にモーダルを開く
+  const HandleDeleteButtonClick = () => {
+    setIsModalOpen(true)
+  }
+
+  // ユーザーがボタンを押下した時削除処理の実装
+  const handleConfirmDelete = () => {
+    if (todo) {
+      deleteTodo(todo.id) // 削除処理実行
+      setIsModalOpen(false)
+      ScreenTrans.push(RoutePath.TODOLIST) // 削除後、一覧画面へ
+    }
   }
 
   return (
@@ -61,13 +73,20 @@ export default function DetailTodo({
             </Link>
             <button
               className='text-orange-950'
-              onClick={HandleAddDeleteButtonClick}
+              onClick={HandleDeleteButtonClick}
             >
               削除
             </button>
           </div>
         </div>
       </main>
+
+      {/*削除確認モーダル */}
+      <DeleteConfirmModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} //モーダルをとじる
+        onConfirm={handleConfirmDelete} //削除処理を実行
+      />
     </div>
   )
 }
