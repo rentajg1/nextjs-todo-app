@@ -1,3 +1,5 @@
+// 指摘有り
+
 'use client'
 
 import { useTodoItem } from '@/hooks/useTodoItem'
@@ -63,21 +65,21 @@ export default function UpdateTodo({
           <h2 className='text-xl text_black font-semibold mb-4'>
             TODO更新画面
           </h2>
-          <div  className='mb-4 w-full'>
-          <input
-            placeholder={todo.title}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className='mb-4 w-full p-2 text-1xl text-black'
-          />  
+          <div className='mb-4 w-full'>
+            <input
+              placeholder={todo.title}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className='mb-4 w-full p-2 text-1xl text-black'
+            />
           </div>
           <div className='mb-4 w-full'>
-          <textarea
-            placeholder={todo.content}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className='mb-4 w-full p-2 text-1xl text-black'
-          ></textarea>
+            <textarea
+              placeholder={todo.content}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className='mb-4 w-full p-2 text-1xl text-black'
+            ></textarea>
           </div>
           <div className='flex justify-between w-full p-4'>
             <button
@@ -87,7 +89,9 @@ export default function UpdateTodo({
               確定
             </button>
             <Link href={`/detail/${todo.id}`}>
-              <button className='shadow px-4 py-2 rounded-md hover:bg-white-200'>戻る</button>
+              <button className='shadow px-4 py-2 rounded-md hover:bg-white-200'>
+                戻る
+              </button>
             </Link>
           </div>
         </div>

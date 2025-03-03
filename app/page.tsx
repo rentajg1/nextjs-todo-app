@@ -1,3 +1,5 @@
+// 指摘有り
+
 'use client'
 import { RoutePath } from '@/RoutePath/ RoutePath'
 import Link from 'next/link'
@@ -32,7 +34,7 @@ export default function ListTodo() {
           {todos.map((todo) => (
             <div className='bg-white p-4 shadow rounded my-2' key={todo.id}>
               <Link href={`/detail/${todo.id}`}>
-              <h2 className='text-1xl text-black'>{todo.title}</h2>
+                <h2 className='text-1xl text-black'>{todo.title}</h2>
               </Link>
               <p className='text-black'>{todo.content}</p>
             </div>

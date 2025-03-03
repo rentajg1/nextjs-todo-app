@@ -1,3 +1,5 @@
+// 指摘有り
+
 'use client'
 import { useTodoItem } from '@/hooks/useTodoItem'
 import { RoutePath } from '@/RoutePath/ RoutePath'
@@ -21,7 +23,6 @@ export default function AddTodo() {
     },
   })
 
-    
   const OnSubmit = (data: { title: string; content: string }) => {
     addTodo(data.title, data.content)
     alert('登録完了')
@@ -74,9 +75,9 @@ export default function AddTodo() {
                 <p className='text-red-500 text-sm'>{errors.content.message}</p>
               )}
             </div>
-          <button type='submit' className='text-orange-950'>
-            登録
-          </button>
+            <button type='submit' className='text-orange-950'>
+              登録
+            </button>
           </form>
         </div>
       </div>

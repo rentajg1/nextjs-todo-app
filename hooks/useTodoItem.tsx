@@ -1,3 +1,5 @@
+// 指摘有り
+
 import { useState, useEffect } from 'react'
 
 //TODOデータの型
