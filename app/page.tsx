@@ -22,7 +22,7 @@ export default function ListTodo() {
         </Link>
         <button
           onClick={HandleAddTodoButtonClick}
-          className='bg-white text-blue-500 px-4 py-2 rounded-md shadow hover:bg-green-200'
+          className='bg-white text-black px-4 py-2 rounded-md shadow hover:bg-white-200'
         >
           TODO登録画面
         </button>
@@ -30,9 +30,9 @@ export default function ListTodo() {
       <main className='flex-1 bg-gray-100 p-4 overflow-auto'>
         <div className='space-y-2'>
           {todos.map((todo) => (
-            <div className='bg-white p-4 shadow rounded' key={todo.id}>
+            <div className='bg-white p-4 shadow rounded my-2' key={todo.id}>
               <Link href={`/detail/${todo.id}`}>
-                <span className='text-bold text-black'>{todo.title}</span>
+              <h2 className='text-1xl text-black'>{todo.title}</h2>
               </Link>
               <p className='text-black'>{todo.content}</p>
             </div>
