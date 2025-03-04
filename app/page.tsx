@@ -3,6 +3,8 @@ import { RoutePath } from '@/RoutePath/ RoutePath'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useTodoItem } from '@/hooks/useTodoItem'
+import { signInWithPopup } from 'firebase/auth'
+import { auth, provider } from '@/firebase/firebase'
 
 export default function ListTodo() {
   //画面遷移の変数
@@ -12,6 +14,10 @@ export default function ListTodo() {
   // ユーザーがボタンを押下した時登録画面に画面遷移
   const handleAddTodoButtonClick = () => {
     router.push(RoutePath.TODOADD)
+  }
+
+  const handleFirebaseTestButtonClick = () => {
+    signInWithPopup(auth, provider)
   }
 
   return (
@@ -38,6 +44,12 @@ export default function ListTodo() {
             </div>
           ))}
         </div>
+        <button
+          onClick={handleFirebaseTestButtonClick}
+          className='bg-white text-black px-4 py-2 rounded-md shadow hover:bg-white-200'
+        >
+          firebaseに接続されているか確認
+        </button>
       </main>
       <footer className='w-full py-4 text-center'>
         <p>©︎COPY Light </p>
