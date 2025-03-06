@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
-import { getAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
 import { GoogleAuthProvider } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAE2wlCIONHwyDOSFrMv7UDWZPAZbhIVz4',
@@ -21,4 +21,7 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 
-export { auth, provider }
+// Firestore のインスタンスを取得
+const db = getFirestore(app);
+
+export { auth, provider, db }
