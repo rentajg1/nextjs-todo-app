@@ -1,4 +1,18 @@
 import { useState, useEffect } from 'react'
+import {
+  Timestamp,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { db } from '@/firebase/firebase';
+import { title } from 'process';
+import { Content } from 'next/font/google';
 
 //TODOデータの型
 type Todo = {
@@ -7,8 +21,13 @@ type Todo = {
   content: string
 }
 
+
+
 export function useTodoItem() {
   const [todos, setTodos] = useState<Todo[]>([])
+
+  // docData(id:string, title:string, content:string): string {
+  // }
 
   // Todoリストを取得
   useEffect(() => {
@@ -17,11 +36,18 @@ export function useTodoItem() {
   }, [])
 
   //Todoを追加
-  const addTodo = (title: string, content: string) => {
-    const newTodo = { id: (todos.length + 1).toString(), title, content }
-    const updatedTodos = [...todos, newTodo]
-    setTodos(updatedTodos)
-    localStorage.setItem('todos', JSON.stringify(updatedTodos))
+  const addTodo = async (title: string, content: string) => {
+    //const newTodo = { id: (todos.length + 1).toString(), title, content }
+    //const updatedTodos = [...todos, newTodo]
+    //setTodos(updatedTodos)
+    const newId = {id:todos.length + 1};
+    const docData ={
+      id: (todos.length + 1).toString(),
+      title: title,
+      content: content
+    }
+    await setDoc(doc(db,"todos",docData.id), docData)
+    //localStorage.setItem('todos', JSON.stringify(updatedTodos))
   }
 
   //Todoを更新する
@@ -53,3 +79,7 @@ export function useTodoItem() {
 
   return { todos, setTodos, addTodo, updateTodo, deleteTodo }
 }
+function docData(TodoId: { id: string; }, title: string, content: string): any {
+  throw new Error('Function not implemented.');
+}
+
