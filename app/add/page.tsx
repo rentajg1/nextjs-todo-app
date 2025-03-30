@@ -1,28 +1,29 @@
 'use client'
-import { useTodoItem } from '@/hooks/useTodoItem'
-import { RoutePath } from '@/RoutePath/ RoutePath'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { RoutePath } from '@/RoutePath/ RoutePath'
+import Link from 'next/link'
+import { useTodoUseCase } from '@/usecases/TodoUseCase'
+import { Todo } from '@/entities/Todo'
 
 export default function AddTodo() {
   const router = useRouter()
-  const { addTodo } = useTodoItem()
+  const { createTodo } = useTodoUseCase()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({
+  } = useForm<Todo>({
     defaultValues: {
       title: '',
       content: '',
     },
   })
 
-  const onSubmit = (data: { title: string; content: string }) => {
-    addTodo(data.title, data.content)
+  const onSubmit = async (data: Todo) => {
+    await createTodo(data.title, data.content)
     alert('登録完了')
     reset() // フォームをリセット
     router.push(RoutePath.TODOLIST) // 一覧ページへ遷移
@@ -30,7 +31,7 @@ export default function AddTodo() {
 
   return (
     <div className='flex flex-col h-screen'>
-      <header className='flex justify-between items-center w-full px-20  py-4'>
+      <header className='flex justify-between items-center w-full px-20 py-4'>
         <Link href={RoutePath.TODOLIST}>
           <span>TODOLIST</span>
         </Link>

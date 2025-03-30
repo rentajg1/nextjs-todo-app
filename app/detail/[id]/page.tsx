@@ -1,5 +1,3 @@
-// 指摘有り
-
 'use client'
 import { RoutePath } from '@/RoutePath/ RoutePath'
 import DeleteConfirmModal from '@/components/DeleteConfirmModal'
@@ -34,6 +32,7 @@ export default function DetailTodo({
 
   //削除ボタンクリック時にモーダルを開く
   const HandleDeleteButtonClick = () => {
+    console.log(todo)
     setIsModalOpen(true)
   }
 
@@ -41,6 +40,7 @@ export default function DetailTodo({
   const handleConfirmDelete = () => {
     if (todo) {
       deleteTodo(todo.id) // 削除処理実行
+      console.log(todo)
       setIsModalOpen(false)
       router.push(RoutePath.TODOLIST) // 削除後、一覧画面へ
     }
@@ -90,8 +90,8 @@ export default function DetailTodo({
       {/*削除確認モーダル */}
       <DeleteConfirmModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)} //モーダルをとじる
         onConfirm={handleConfirmDelete} //削除処理を実行
+        onClose={() => setIsModalOpen(false)} //モーダルをとじる
       />
     </div>
   )
