@@ -1,34 +1,39 @@
 'use client'
-import { RoutePath } from '@/RoutePath/ RoutePath'
+import { RoutePath } from '../RoutePath/ RoutePath'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useTodoItem } from '@/hooks/useTodoItem'
-import { signInWithPopup } from 'firebase/auth'
-import { auth, provider } from '@/firebase/firebase'
+import { useEffect, useState } from 'react'
+import { useTodoUseCase } from '@/usecases/TodoUseCase'
+import { Todo } from '@/entities/Todo'
 
 export default function ListTodo() {
-  //画面遷移の変数
   const router = useRouter()
-  const { todos } = useTodoItem()
+  const { getTodos } = useTodoUseCase()
+  const [todos, setTodos] = useState<Todo[]>([])
 
-  // ユーザーがボタンを押下した時登録画面に画面遷移
+  // Firestoreからデータ取得
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedTodos = await getTodos()
+      setTodos(fetchedTodos)
+    }
+    fetchData()
+  }, [])
+
+  // TODO登録画面に遷移
   const handleAddTodoButtonClick = () => {
     router.push(RoutePath.TODOADD)
   }
 
-  const handleFirebaseTestButtonClick = () => {
-    signInWithPopup(auth, provider)
-  }
-
   return (
     <div className='flex flex-col h-screen'>
-      <header className='flex justify-between items-center w-full px-20  py-4'>
+      <header className='flex justify-between items-center w-full px-20 py-4'>
         <Link href={RoutePath.TODOLIST}>
           <span>TODOLIST</span>
         </Link>
         <button
           onClick={handleAddTodoButtonClick}
-          className='bg-white text-black px-4 py-2 rounded-md shadow hover:bg-white-200'
+          className='bg-white text-black px-4 py-2 rounded-md shadow hover:bg-gray-200'
         >
           TODO登録画面
         </button>
@@ -44,15 +49,9 @@ export default function ListTodo() {
             </div>
           ))}
         </div>
-        <button
-          onClick={handleFirebaseTestButtonClick}
-          className='bg-white text-black px-4 py-2 rounded-md shadow hover:bg-white-200'
-        >
-          firebaseに接続されているか確認
-        </button>
       </main>
       <footer className='w-full py-4 text-center'>
-        <p>©︎COPY Light </p>
+        <p>©︎COPY Light</p>
       </footer>
     </div>
   )

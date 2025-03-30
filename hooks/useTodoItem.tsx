@@ -1,55 +1,41 @@
 import { useState, useEffect } from 'react'
+import { useTodoUseCase } from '../usecases/TodoUseCase'
+import { Todo } from '../entities/Todo'
 
-//TODOデータの型
-type Todo = {
-  id: string
-  title: string
-  content: string
-}
-
-export function useTodoItem() {
+export const useTodoItem = () => {
   const [todos, setTodos] = useState<Todo[]>([])
+  const { getTodos, modifyTodo, removeTodo } = useTodoUseCase()
 
   // Todoリストを取得
   useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem('todos') || '[]')
-    setTodos(storedTodos)
+    const loadTodos = async () => {
+      const fetchedTodos = await getTodos()
+      setTodos(fetchedTodos)
+    }
+    loadTodos()
   }, [])
 
-  //Todoを追加
-  const addTodo = (title: string, content: string) => {
-    const newTodo = { id: (todos.length + 1).toString(), title, content }
-    const updatedTodos = [...todos, newTodo]
-    setTodos(updatedTodos)
-    localStorage.setItem('todos', JSON.stringify(updatedTodos))
-  }
+  // //Todoを追加
+  // const addTodo = async (title: string, content: string) => {
+  //   await createTodo(title, content)
+  //   setTodos(await getTodos())
+  // }
 
   //Todoを更新する
-  const updateTodo = (id: string, newTitle: string, newContent: string) => {
-    //idに該当するデータのtitleとcontentを更新
-    const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, title: newTitle, content: newContent } : todo
-    )
-    // ローカルストレージの `todos` を削除
-    localStorage.removeItem('todos')
-    localStorage.setItem('todos', JSON.stringify(updatedTodos))
-    setTodos(updatedTodos)
+  const updateTodo = async (
+    id: string,
+    newTitle: string,
+    newContent: string
+  ) => {
+    await modifyTodo(id, newTitle, newContent)
+    setTodos(await getTodos())
   }
 
   //Todoを削除する
-  const deleteTodo = (id: string) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== id)
-
-    // ID を振り直す
-    const reindexedTodos = updatedTodos.map((todo, index) => ({
-      ...todo,
-      id: (index + 1).toString(), // 1 から順に ID を振り直す
-    }))
-    // ローカルストレージの `todos` を削除
-    localStorage.removeItem('todos')
-    localStorage.setItem('todos', JSON.stringify(reindexedTodos))
-    setTodos(reindexedTodos)
+  const deleteTodo = async (id: string) => {
+    await removeTodo(id)
+    setTodos(await getTodos())
   }
 
-  return { todos, setTodos, addTodo, updateTodo, deleteTodo }
+  return { todos, updateTodo, deleteTodo }
 }
